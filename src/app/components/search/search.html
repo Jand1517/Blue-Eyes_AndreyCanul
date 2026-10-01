@@ -1,0 +1,68 @@
+<section class="search-panel" aria-labelledby="search-title">
+  <div class="search-heading">
+    <div>
+      <p class="eyebrow">EXPLORADOR DE CARTAS <span>·</span> 01</p>
+      <h2 id="search-title">Encuentra tu carta</h2>
+    </div>
+    <span class="api-stamp"><span class="status-dot"></span> API EN VIVO</span>
+  </div>
+
+  <label class="search-field">
+    <span class="search-glyph" aria-hidden="true"></span>
+    <input
+      type="search"
+      [formControl]="searchControl"
+      placeholder="Nombre de la carta..."
+      aria-label="Buscar carta por nombre"
+      autocomplete="off"
+    />
+    <span class="search-hint">NOMBRE</span>
+  </label>
+
+  <div class="suggestions" aria-label="Búsquedas sugeridas">
+    <span class="suggestion-label">PRUEBA</span>
+    @for (suggestion of suggestions; track suggestion) {
+      <button type="button" class="suggestion" (click)="searchFor(suggestion)">{{ suggestion }}</button>
+    }
+  </div>
+
+  @if (state$ | async; as state) {
+    <div class="results-heading" aria-live="polite">
+      <h3>Resultados</h3>
+      @if (state.status === 'success') {
+        <span class="result-count">{{ state.cards.length }} cartas</span>
+      }
+    </div>
+
+    @switch (state.status) {
+      @case ('loading') {
+        <div class="state-message loading-state" role="status">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Consultando el archivo...</span>
+        </div>
+      }
+      @case ('idle') {
+        <div class="state-message" role="status">Escribe al menos dos caracteres para buscar.</div>
+      }
+      @case ('empty') {
+        <div class="state-message" role="status">
+          <span class="state-mark">0</span>
+          <span>No encontramos cartas para “{{ searchControl.value }}”. Prueba con otro nombre.</span>
+        </div>
+      }
+      @case ('error') {
+        <div class="state-message error-state" role="alert">
+          <span>{{ state.message }}</span>
+          <button type="button" class="retry-button" (click)="retry()">Reintentar</button>
+        </div>
+      }
+      @case ('success') {
+        <div class="card-grid search-grid">
+          @for (card of state.cards; track card.id) {
+            <app-card [card]="card" (selected)="cardSelected.emit($event)" />
+          }
+        </div>
+      }
+    }
+  }
+</section>

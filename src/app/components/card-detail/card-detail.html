@@ -1,0 +1,88 @@
+<aside class="detail-panel" aria-labelledby="detail-title">
+  <div class="detail-heading">
+    <div>
+      <p class="eyebrow">FICHA DE CARTA <span>·</span> 02</p>
+      <h2 id="detail-title">{{ card ? 'Detalle' : 'Vista previa' }}</h2>
+    </div>
+    @if (card) {
+      <span class="card-id">#{{ card.id }}</span>
+    }
+  </div>
+
+  @if (card; as selectedCard) {
+    <div class="detail-card">
+      <div class="detail-art">
+        @if (imageUrl) {
+          <img [src]="imageUrl" [alt]="selectedCard.name" loading="lazy" />
+        } @else {
+          <span class="art-placeholder">SIN<br />IMAGEN</span>
+        }
+      </div>
+      <div class="detail-title-block">
+        <h3>{{ selectedCard.name }}</h3>
+        <span class="type-line">{{ selectedCard.type ?? selectedCard.race ?? 'Tipo no disponible' }}</span>
+      </div>
+
+      <div class="stat-strip">
+        @if (selectedCard.level !== undefined) {
+          <div><span>NIVEL</span><b>{{ selectedCard.level }}</b></div>
+        }
+        @if (selectedCard.attribute) {
+          <div><span>ATRIBUTO</span><b>{{ selectedCard.attribute }}</b></div>
+        }
+        @if (selectedCard.atk !== undefined) {
+          <div><span>ATK</span><b>{{ selectedCard.atk }}</b></div>
+        }
+        @if (selectedCard.def !== undefined) {
+          <div><span>DEF</span><b>{{ selectedCard.def }}</b></div>
+        }
+      </div>
+
+      <div class="description-block">
+        <h4>DESCRIPCIÓN</h4>
+        <p>{{ selectedCard.desc || 'Esta carta no tiene descripción disponible.' }}</p>
+      </div>
+
+      <div class="metadata-row">
+        <span>RAZA</span><b>{{ selectedCard.race ?? '—' }}</b>
+      </div>
+      <div class="metadata-row">
+        <span>ARQUETIPO</span><b>{{ selectedCard.archetype ?? '—' }}</b>
+      </div>
+
+      @if (isBlueEyes && printings.length) {
+        <section class="printings" aria-labelledby="printings-title">
+          <div class="printings-heading">
+            <h4 id="printings-title">IMPRESIONES</h4>
+            <span>{{ printings.length }}</span>
+          </div>
+          <div class="printings-list">
+            @for (printing of printings; track $index) {
+              <article class="printing-row">
+                <div class="printing-copy">
+                  <b>{{ printing.set_name ?? 'Expansión desconocida' }}</b>
+                  <span>{{ printing.set_code ?? 'Código no disponible' }}</span>
+                </div>
+                <div class="printing-meta">
+                  <span>{{ printing.set_rarity ?? 'Rareza no disponible' }}</span>
+                  <b>{{ printing.set_price ? '$' + printing.set_price : '—' }}</b>
+                </div>
+              </article>
+            }
+          </div>
+        </section>
+      }
+
+      @if (selectedCard.ygoprodeck_url) {
+        <a class="source-link" [href]="selectedCard.ygoprodeck_url" target="_blank" rel="noopener noreferrer">
+          Ver ficha en YGOPRODeck <span aria-hidden="true">↗</span>
+        </a>
+      }
+    </div>
+  } @else {
+    <div class="empty-detail">
+      <span class="empty-detail-mark" aria-hidden="true">✦</span>
+      <p>Selecciona una carta para consultar sus características e impresiones.</p>
+    </div>
+  }
+</aside>

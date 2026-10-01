@@ -1,0 +1,48 @@
+<section class="collection-section" aria-labelledby="collection-title">
+  <div class="collection-heading">
+    <div>
+      <p class="eyebrow">ARCHIVO DE ARQUETIPO <span>·</span> 03</p>
+      <h2 id="collection-title">Blue-Eyes <i>Collection</i></h2>
+      <p class="collection-intro">Una familia de dragones legendarios, reunida desde el catálogo oficial.</p>
+    </div>
+    @if (state().status === 'success' || state().status === 'empty') {
+      <span class="collection-total">{{ state().cards.length }} <small>CARTAS</small></span>
+    }
+  </div>
+
+  @if (state().status === 'success' || state().status === 'empty') {
+    <div class="collection-toolbar">
+      <label class="expansion-filter">
+        <span>EXPANSIÓN</span>
+        <select [value]="selectedExpansion()" (change)="changeExpansion($event)" aria-label="Filtrar por expansión">
+          <option value="">Todas las expansiones · {{ state().cards.length }}</option>
+          @for (expansion of expansions(); track expansion) {
+            <option [value]="expansion">
+              {{ expansion }} · {{ state().cards.filter(card => (card.card_sets ?? []).some(printing => printing.set_name === expansion)).length }}
+            </option>
+          }
+        </select>
+      </label>
+      <span class="filtered-total">{{ visibleCards().length }} de {{ state().cards.length }} cartas</span>
+    </div>
+
+    @if (visibleCards().length) {
+      <div class="card-grid collection-grid">
+        @for (card of visibleCards(); track card.id) {
+          <app-card [card]="card" (selected)="cardSelected.emit($event)" />
+        }
+      </div>
+    } @else {
+      <div class="collection-message" role="status">No hay cartas Blue-Eyes impresas en esta expansión.</div>
+    }
+  } @else if (state().status === 'loading') {
+    <div class="collection-message loading-message" role="status"><span class="spinner" aria-hidden="true"></span> Consultando el arquetipo...</div>
+  } @else if (state().status === 'error') {
+    <div class="collection-message error-message" role="alert">
+      <span>{{ state().message }}</span>
+      <button type="button" (click)="loadCollection()">Reintentar</button>
+    </div>
+  } @else {
+    <div class="collection-message" role="status">La API no devolvió cartas para este arquetipo.</div>
+  }
+</section>

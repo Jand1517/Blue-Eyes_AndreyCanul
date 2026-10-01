@@ -1,0 +1,22 @@
+<button class="card-tile" type="button" (click)="selected.emit(card)" [attr.aria-label]="'Ver detalles de ' + card.name">
+  <span class="card-art">
+    @if (imageUrl) {
+      <img [src]="imageUrl" [alt]="card.name" loading="lazy" (error)="hideBrokenImage($event)" />
+    } @else {
+      <span class="image-fallback" aria-hidden="true">YGO</span>
+    }
+    @if (card.level !== undefined) {
+      <span class="level-badge" [attr.aria-label]="'Nivel ' + card.level">{{ card.level }} <span aria-hidden="true">✦</span></span>
+    }
+  </span>
+  <span class="card-copy">
+    <span class="card-name">{{ card.name }}</span>
+    <span class="card-type">{{ card.type ?? card.race ?? 'Carta' }}</span>
+    @if (card.attribute) {
+      <span class="card-attribute">{{ card.attribute }}</span>
+    }
+    @if (card.atk !== undefined || card.def !== undefined) {
+      <span class="card-stats"><span>ATK <b>{{ card.atk ?? '—' }}</b></span><span>DEF <b>{{ card.def ?? '—' }}</b></span></span>
+    }
+  </span>
+</button>

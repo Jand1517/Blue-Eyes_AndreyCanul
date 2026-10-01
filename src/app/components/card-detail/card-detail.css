@@ -1,0 +1,265 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.detail-panel {
+  padding: 19px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+}
+
+.detail-heading,
+.printings-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.eyebrow,
+.card-id,
+.stat-strip span,
+.description-block h4,
+.metadata-row > span,
+.printings-heading h4,
+.printing-meta,
+.printing-copy span {
+  color: var(--ink-subtle);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.59rem;
+  letter-spacing: 0.055em;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+}
+
+.eyebrow span {
+  color: var(--gold);
+}
+
+h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.card-id {
+  padding-bottom: 2px;
+}
+
+.detail-card {
+  margin-top: 19px;
+}
+
+.detail-art {
+  display: grid;
+  width: min(100%, 245px);
+  aspect-ratio: 0.715;
+  margin: 0 auto 17px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: linear-gradient(145deg, #263b3d, #33494a 55%, #435c5e);
+}
+
+.detail-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.art-placeholder {
+  color: #bddbd1;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.detail-title-block h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.45rem;
+  line-height: 1.12;
+}
+
+.type-line {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+}
+
+.stat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin-top: 16px;
+  border: 1px solid var(--border-soft);
+  background: var(--border-soft);
+}
+
+.stat-strip > div {
+  display: grid;
+  min-width: 54px;
+  flex: 1 1 auto;
+  gap: 4px;
+  padding: 9px 8px;
+  background: var(--surface-inset);
+}
+
+.stat-strip b {
+  color: var(--ink);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.description-block {
+  padding-block: 15px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.description-block h4,
+.printings-heading h4 {
+  margin: 0;
+}
+
+.description-block p {
+  max-height: 118px;
+  margin: 8px 0 0;
+  overflow: auto;
+  color: #bdc9c3;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.metadata-row {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.metadata-row b {
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.printings {
+  margin-top: 19px;
+}
+
+.printings-heading {
+  align-items: center;
+  margin-bottom: 9px;
+}
+
+.printings-heading > span {
+  display: grid;
+  min-width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: #293f3e;
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+}
+
+.printings-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border-soft);
+  scrollbar-color: #4e6966 transparent;
+  scrollbar-width: thin;
+}
+
+.printing-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.printing-copy,
+.printing-meta {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.printing-copy b {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+
+.printing-copy span,
+.printing-meta {
+  font-size: 0.58rem;
+}
+
+.printing-meta {
+  flex: 0 0 auto;
+  justify-items: end;
+}
+
+.printing-meta b {
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 17px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  text-decoration: none;
+}
+
+.source-link:hover {
+  text-decoration: underline;
+}
+
+.empty-detail {
+  display: grid;
+  min-height: 220px;
+  align-content: center;
+  justify-items: center;
+  gap: 13px;
+  padding: 22px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+.empty-detail-mark {
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.empty-detail p {
+  max-width: 205px;
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
